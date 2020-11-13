@@ -65,11 +65,11 @@ func init() {
 
 	hookableSignals = []os.Signal{
 		syscall.SIGHUP,
-		syscall.SIGUSR1,
-		syscall.SIGUSR2,
+// 		syscall.SIGUSR1,
+// 		syscall.SIGUSR2,
 		syscall.SIGINT,
 		syscall.SIGTERM,
-		syscall.SIGTSTP,
+// 		syscall.SIGTSTP,
 	}
 }
 
@@ -111,19 +111,19 @@ func NewServer(addr string, handler http.Handler) (srv *endlessServer) {
 		SignalHooks: map[int]map[os.Signal][]func(){
 			PRE_SIGNAL: map[os.Signal][]func(){
 				syscall.SIGHUP:  []func(){},
-				syscall.SIGUSR1: []func(){},
-				syscall.SIGUSR2: []func(){},
+// 				syscall.SIGUSR1: []func(){},
+// 				syscall.SIGUSR2: []func(){},
 				syscall.SIGINT:  []func(){},
 				syscall.SIGTERM: []func(){},
-				syscall.SIGTSTP: []func(){},
+// 				syscall.SIGTSTP: []func(){},
 			},
 			POST_SIGNAL: map[os.Signal][]func(){
 				syscall.SIGHUP:  []func(){},
-				syscall.SIGUSR1: []func(){},
-				syscall.SIGUSR2: []func(){},
+// 				syscall.SIGUSR1: []func(){},
+// 				syscall.SIGUSR2: []func(){},
 				syscall.SIGINT:  []func(){},
 				syscall.SIGTERM: []func(){},
-				syscall.SIGTSTP: []func(){},
+// 				syscall.SIGTSTP: []func(){},
 			},
 		},
 		state: STATE_INIT,
@@ -335,23 +335,23 @@ func (srv *endlessServer) handleSignals() {
 			if err != nil {
 				log.Println("Fork err:", err)
 			}
-		case syscall.SIGUSR1:
-			log.Println(pid, "Received SIGUSR1.")
-		case syscall.SIGUSR2:
-			log.Println(pid, "Received SIGUSR2.")
-			srv.hammerTime(0 * time.Second)
+// 		case syscall.SIGUSR1:
+// 			log.Println(pid, "Received SIGUSR1.")
+// 		case syscall.SIGUSR2:
+// 			log.Println(pid, "Received SIGUSR2.")
+// 			srv.hammerTime(0 * time.Second)
 		case syscall.SIGINT:
 			log.Println(pid, "Received SIGINT.")
 			srv.shutdown()
 		case syscall.SIGTERM:
 			log.Println(pid, "Received SIGTERM.")
 			srv.shutdown()
-		case syscall.SIGTSTP:
-			log.Println(pid, "Received SIGTSTP.")
-			err := syscall.Kill(pid, syscall.SIGSTOP)
-			if err != nil {
-				log.Println("SIGSTP error", err)
-			}
+// 		case syscall.SIGTSTP:
+// 			log.Println(pid, "Received SIGTSTP.")
+// 			err := syscall.Kill(pid, syscall.SIGSTOP)
+// 			if err != nil {
+// 				log.Println("SIGSTP error", err)
+// 			}
 		default:
 			log.Printf("Received %v: nothing i care about...\n", sig)
 		}
