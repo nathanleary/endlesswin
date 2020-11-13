@@ -16,7 +16,7 @@ import (
 	"sync"
 	"syscall"
 	"time"
-	"process"
+	"github.com/shirou/gopsutil/process"
 	// "github.com/fvbock/uds-go/introspect"
 )
 
