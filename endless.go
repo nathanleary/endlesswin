@@ -224,7 +224,18 @@ func (srv *endlessServer) ListenAndServe() (err error) {
 	srv.EndlessListener = newEndlessListener(l, srv)
 
 	if srv.isChild {
-		syscall.Kill(syscall.Getppid(), syscall.SIGTERM)
+		
+		p, err := process.NewProcess(syscall.Getppid()) // Specify process id of parent
+		// handle error
+
+		for _, v := range p.Children(){
+		    err = *v.Kill()  // Kill each child
+		    // handle error
+		}
+
+		p.Kill() // Kill the parent process
+		
+// 		syscall.Kill(syscall.Getppid(), syscall.SIGTERM)
 	}
 
 	srv.BeforeBegin(srv.Addr)
@@ -275,7 +286,17 @@ func (srv *endlessServer) ListenAndServeTLS(certFile, keyFile string) (err error
 	srv.EndlessListener = tls.NewListener(srv.tlsInnerListener, config)
 
 	if srv.isChild {
-		syscall.Kill(syscall.Getppid(), syscall.SIGTERM)
+		p, err := process.NewProcess(syscall.Getppid()) // Specify process id of parent
+		// handle error
+
+		for _, v := range p.Children(){
+		    err = *v.Kill()  // Kill each child
+		    // handle error
+		}
+
+		p.Kill() // Kill the parent process
+		
+// 		syscall.Kill(syscall.Getppid(), syscall.SIGTERM)
 	}
 
 	log.Println(syscall.Getpid(), srv.Addr)
