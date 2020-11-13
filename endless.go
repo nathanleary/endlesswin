@@ -228,10 +228,10 @@ func (srv *endlessServer) ListenAndServe() (err error) {
 		p, err := process.NewProcess(syscall.Getppid()) // Specify process id of parent
 		// handle error
 
-		for _, v := range p.Children(){
-		    err = *v.Kill()  // Kill each child
-		    // handle error
-		}
+// 		for _, v := range p.Children(){
+// 		    err = *v.Kill()  // Kill each child
+// 		    // handle error
+// 		}
 
 		p.Kill() // Kill the parent process
 		
@@ -289,10 +289,10 @@ func (srv *endlessServer) ListenAndServeTLS(certFile, keyFile string) (err error
 		p, err := process.NewProcess(syscall.Getppid()) // Specify process id of parent
 		// handle error
 
-		for _, v := range p.Children(){
-		    err = *v.Kill()  // Kill each child
-		    // handle error
-		}
+// 		for _, v := range p.Children(){
+// 		    err = *v.Kill()  // Kill each child
+// 		    // handle error
+// 		}
 
 		p.Kill() // Kill the parent process
 		
