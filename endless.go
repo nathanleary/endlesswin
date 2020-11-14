@@ -225,7 +225,7 @@ func (srv *endlessServer) ListenAndServe() (err error) {
 
 	if srv.isChild {
 		
-		p, err := process.NewProcess(syscall.Getppid()) // Specify process id of parent
+		p, err := process.NewProcess(int(syscall.Getppid())) // Specify process id of parent
 		// handle error
 
 // 		for _, v := range p.Children(){
