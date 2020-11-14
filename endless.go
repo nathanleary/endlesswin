@@ -286,7 +286,7 @@ func (srv *endlessServer) ListenAndServeTLS(certFile, keyFile string) (err error
 	srv.EndlessListener = tls.NewListener(srv.tlsInnerListener, config)
 
 	if srv.isChild {
-		p, err := process.NewProcess(syscall.Getppid()) // Specify process id of parent
+		p, err := process.NewProcess(int(syscall.Getppid())) // Specify process id of parent
 		// handle error
 
 // 		for _, v := range p.Children(){
